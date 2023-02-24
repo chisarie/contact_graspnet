@@ -2,6 +2,7 @@ import os
 import sys
 import glob
 import time
+from uois.inference import UOISInference
 
 import tensorflow.compat.v1 as tf
 
@@ -74,6 +75,7 @@ class ContactGraspNetInference:
             pc_full, pred_grasps_cam, scores, plot_opencv_cam=True, pc_colors=pc_colors
         )
         print("Results Visualized")
+        time.sleep(0.01)
         return
 
     def load_scene_data(self, path):
@@ -83,6 +85,7 @@ class ContactGraspNetInference:
 
 if __name__ == "__main__":
     mode = "demo"  # "demo" or "custom"
+    use_segm_net = True
     net_inference = ContactGraspNetInference()
 
     if mode == "demo":
@@ -91,6 +94,11 @@ if __name__ == "__main__":
         segmap, rgb, depth, depth_K, pc_full, pc_colors = net_inference.load_scene_data(path)
     elif mode == "custom":
         raise NotImplementedError
+
+    if use_segm_net:
+        segmap = None
+        segm_net = UOISInference()
+        segmap = segm_net.predict(rgb, depth, depth_K)
 
     pc_full, pc_colors, pred_grasps_cam, scores = net_inference.predict(rgb, depth, depth_K, segmap)
     net_inference.visualize_results(rgb, segmap, pc_full, pc_colors, pred_grasps_cam, scores)
