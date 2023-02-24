@@ -62,8 +62,8 @@ class ContactGraspNetInference:
             self.sess,
             pc_full,
             pc_segments=pc_segments,
-            local_regions=True,
-            filter_grasps=True,
+            local_regions=True if segmap is not None else False,
+            filter_grasps=True if segmap is not None else False,
             forward_passes=1,
         )
         return pc_full, pc_colors, pred_grasps_cam, scores
@@ -73,7 +73,7 @@ class ContactGraspNetInference:
         visualize_grasps(
             pc_full, pred_grasps_cam, scores, plot_opencv_cam=True, pc_colors=pc_colors
         )
-        time.sleep(0.01)
+        print("Results Visualized")
         return
 
     def load_scene_data(self, path):
