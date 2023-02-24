@@ -1,6 +1,7 @@
 results
 checkpoints/*
 *.npz
+*.npy
 **/*.pyc
 **/__pycache__
-.vscode
+
