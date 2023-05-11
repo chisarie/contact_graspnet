@@ -1,4 +1,4 @@
-from contact_graspnet.inference_class import ContactGraspNetInference
+from inference_class import ContactGraspNetInference
 
 def main():
     contactgraspnet = ContactGraspNetInference()
