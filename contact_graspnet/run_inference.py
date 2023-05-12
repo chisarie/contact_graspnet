@@ -1,3 +1,4 @@
+import pathlib
 import numpy as np
 from PIL import Image
 from inference_class import ContactGraspNetInference
@@ -18,9 +19,9 @@ ZED2_RESOLUTION_HALF[1] -= 28  # Cropping
 
 
 def main():
-    data_path = "inference"
-    rgb_uint8 = np.array(Image.open(data_path + "/rgb.png"))
-    depth = np.array(Image.open(data_path + "/depth.png"))
+    data_path = pathlib.Path(__file__).parents[1] / "inference"
+    rgb_uint8 = np.array(Image.open(data_path / "rgb.png"))
+    depth = np.array(Image.open(data_path / "depth.png"))
     depth = depth.astype(np.float32) / 1000.0
     depth_K = ZED2_INTRINSICS_HALF
     segmap = None
@@ -28,9 +29,13 @@ def main():
     pc_full, pc_colors, pred_grasps_cam, scores = contactgraspnet.predict(
         rgb_uint8, depth, depth_K, segmap
     )
-    contactgraspnet.visualize_results(
-        rgb_uint8, segmap, pc_full, pc_colors, pred_grasps_cam, scores
-    )
+    np.save(data_path / "pc_full.npy", pc_full)
+    np.save(data_path / "pc_colors.npy", pc_colors)
+    np.save(data_path / "pred_grasp_cam.npy", pred_grasps_cam[-1])
+    np.save(data_path / "scores.npy", scores[-1])
+    # contactgraspnet.visualize_results(
+    #     rgb_uint8, segmap, pc_full, pc_colors, pred_grasps_cam, scores
+    # )
     print("done")
     return
 

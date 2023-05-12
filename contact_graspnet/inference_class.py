@@ -1,3 +1,4 @@
+import pathlib
 import os
 import sys
 import glob
@@ -20,7 +21,7 @@ from visualization_utils import visualize_grasps, show_image
 
 class ContactGraspNetInference:
     def __init__(self) -> None:
-        ckpt_dir = "checkpoints/scene_test_2048_bs3_hor_sigma_001"
+        ckpt_dir = pathlib.Path(__file__).parents[1] / "checkpoints/scene_test_2048_bs3_hor_sigma_001"
 
         # Build the model
         global_config = config_utils.load_config(ckpt_dir, batch_size=1)
