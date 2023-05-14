@@ -1,5 +1,5 @@
-import numpy as np
 import mayavi.mlab as mlab
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 

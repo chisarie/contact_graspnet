@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": true
+            "justMyCode": false
         },
         {
             "name": "Inference Demo",
@@ -20,8 +20,8 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             "args": [
-                "--np_path=test_data/*.npy", 
-                "--local_regions", 
+                "--np_path=test_data/*.npy",
+                "--local_regions",
                 "--filter_grasps"
             ]
         }
