@@ -2,14 +2,15 @@
 
 ## Get the code
 ```bash
-git clone git@github.com:chisarie/contact_graspnet.git@inference
-git clone git@github.com:chisarie/uois.git@inference
+git clone git@github.com:chisarie/contact_graspnet.git -b inference
+git clone git@github.com:chisarie/uois.git -b inference
 ```
 
 ## Original Installation
 ```bash
 cd contact_graspnet
 conda env create -f contact_graspnet_env.yml
+conda activate contact_graspnet_env
 pip install scikit-image torch==1.5.1 torchvision==0.6.1
 pip install -e ../uois
 ```
@@ -29,7 +30,8 @@ pip install scikit-image==0.19 torch torchvision
 pip install -e ../uois
 ```
 
-- After you have successfully create a env, don't forget to recompile pointnet2 tf_ops:
+## Post-Install
+After you have successfully create a env, don't forget to recompile `pointnet2 tf_ops`:
 ```bash
 sh compile_pointnet_tfops.sh
 ```
