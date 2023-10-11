@@ -40,13 +40,13 @@ def main():
     )
     inference_time = time.time() - start_time
 
-    pred_grasps_cam = np.concatenate([arr for arr in pred_grasps_cam.values()])
-    scores = np.concatenate([arr for arr in scores.values()])
+    pred_grasps_cam_np = np.concatenate([arr for arr in pred_grasps_cam.values()])
+    scores_np = np.concatenate([arr for arr in scores.values()])
 
     np.save(data_path / "pc_full.npy", pc_full)
     np.save(data_path / "pc_colors.npy", pc_colors)
-    np.save(data_path / "pred_grasp_cam.npy", pred_grasps_cam)
-    np.save(data_path / "scores.npy", scores)
+    np.save(data_path / "pred_grasp_cam.npy", pred_grasps_cam_np)
+    np.save(data_path / "scores.npy", scores_np)
     np.save(data_path / "inference_time.npy", inference_time)
     # contactgraspnet.visualize_results(
     #     rgb_uint8, segmap, pc_full, pc_colors, pred_grasps_cam, scores
