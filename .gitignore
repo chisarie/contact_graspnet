@@ -7,3 +7,4 @@ checkpoints/*
 
 **/tf_ops/**
 **/inference/**
+*.egg-info
