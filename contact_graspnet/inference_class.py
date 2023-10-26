@@ -13,10 +13,9 @@ tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.join(BASE_DIR))
-import config_utils
-from data import load_available_input_data
-from contact_grasp_estimator import GraspEstimator
-from visualization_utils import visualize_grasps, show_image
+from contact_graspnet import config_utils
+from contact_graspnet.data import load_available_input_data
+from contact_graspnet.contact_grasp_estimator import GraspEstimator
 
 
 class ContactGraspNetInference:
@@ -70,7 +69,16 @@ class ContactGraspNetInference:
         )
         return pc_full, pc_colors, pred_grasps_cam, scores
 
-    def visualize_results(self, rgb, segmap, pc_full, pc_colors, pred_grasps_cam, scores):
+    def load_scene_data(self, path):
+        segmap, rgb, depth, depth_K, pc_full, pc_colors = load_available_input_data(path)
+        return segmap, rgb, depth, depth_K, pc_full, pc_colors
+
+
+if __name__ == "__main__":
+    from visualization_utils import visualize_grasps, show_image
+
+
+    def visualize_results(rgb, segmap, pc_full, pc_colors, pred_grasps_cam, scores):
         show_image(rgb, segmap)
         visualize_grasps(
             pc_full, pred_grasps_cam, scores, plot_opencv_cam=True, pc_colors=pc_colors
@@ -79,12 +87,6 @@ class ContactGraspNetInference:
         time.sleep(0.01)
         return
 
-    def load_scene_data(self, path):
-        segmap, rgb, depth, depth_K, pc_full, pc_colors = load_available_input_data(path)
-        return segmap, rgb, depth, depth_K, pc_full, pc_colors
-
-
-if __name__ == "__main__":
     mode = "demo"  # "demo" or "custom"
     use_segm_net = True
     net_inference = ContactGraspNetInference()
@@ -102,4 +104,4 @@ if __name__ == "__main__":
         segmap = segm_net.predict(rgb, depth, depth_K)
 
     pc_full, pc_colors, pred_grasps_cam, scores = net_inference.predict(rgb, depth, depth_K, segmap)
-    net_inference.visualize_results(rgb, segmap, pc_full, pc_colors, pred_grasps_cam, scores)
+    visualize_results(rgb, segmap, pc_full, pc_colors, pred_grasps_cam, scores)
