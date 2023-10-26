@@ -24,7 +24,7 @@ conda create --name contact_graspnet python=3.8
 conda activate contact_graspnet
 conda install -c conda-forge cudatoolkit=11.3
 conda install -c conda-forge cudnn=8.2
-pip install tensorflow==2.5 tensorflow-gpu==2.5 opencv-python-headless pyyaml==5.4.1 pyrender tqdm mayavi pyqt5
+pip install tensorflow==2.9 tensorflow-gpu==2.9 opencv-python-headless pyyaml==5.4.1 pyrender tqdm mayavi pyqt5
 
 pip install scikit-image==0.19 torch torchvision
 pip install -e ../uois
